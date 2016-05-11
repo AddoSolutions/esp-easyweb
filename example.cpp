@@ -51,7 +51,7 @@ void setup(void)
 
 
   // Setup data
-  StaticJsonBuffer<1000> jsonBuffer;
+  StaticJsonBuffer<1024> jsonBuffer;
   JsonObject& state;
   JsonArray& buttons;
   JsonObject& button;
@@ -105,7 +105,11 @@ void setup(void)
     // Get and update State of Temperature
     info["temp"]["state"] = getTemperature();
 
+    // Generate the JSON
     root.printTo(buffer, sizeof(buffer));
+
+    // Send JSON to client
+    server.send(200, "text/json", buffer);
   });
 
 
@@ -142,5 +146,5 @@ char* getTemperature(void){
 
   // Actually get the temperature here
   return "55F";
-  
+
 }
