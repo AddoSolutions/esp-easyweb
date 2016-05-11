@@ -97,7 +97,8 @@ void setup(void)
 
   server.on("/", handle_root);
   
-  server.on("/get-data.json", [](){  // if you add this subdirectory to your webserver call, you get text below :)
+  // This tells the clients what's up every second
+  server.on("/get-data.json", [](){ 
 
     // Get and update State of Power
     info["power"]["state"] = "On";
@@ -114,6 +115,7 @@ void setup(void)
 
 
  
+  // When someone clicks the "Shutdown button"
   server.on("/shutdown", [](){  // if you add this subdirectory to your webserver call, you get text below :)
     
     // Do Something
@@ -122,7 +124,7 @@ void setup(void)
   });
 
 
- 
+  // When someone clicks the "Reboot Button"
   server.on("/reboot", [](){  // if you add this subdirectory to your webserver call, you get text below :)
     
     // Do Something
