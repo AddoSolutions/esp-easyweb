@@ -58,18 +58,15 @@ void setup(void)
   char buffer[1024];
 
   JsonObject& root = jsonBuffer.createObject();
-  JsonArray& info = root.createNestedArray("info");
+  JsonArray& info = root.createNestedObject("info");
 
 
-  // State 1 Setup
-  state = info.createNestedObject();
+  // Power Setup
+  state = info.createNestedObject("power");
   buttons = state.createNestedArray("buttons");
 
   // The name, ex: Temperature
   state["name"] = "Power";
-
-  // It's current state: ex: 55F
-  state["state"] = "On";
 
   // Shutdown Button
   button = buttons.createNestedObject();
@@ -82,6 +79,12 @@ void setup(void)
   button["action"] = "/reboot";
 
   
+  // Temperature Setup
+  state = info.createNestedObject("temp");
+  buttons = state.createNestedArray("buttons");
+
+  // The name, ex: Temperature
+  state["name"] = "Temperature";
 
 
 
@@ -95,6 +98,13 @@ void setup(void)
   server.on("/", handle_root);
   
   server.on("/get-data.json", [](){  // if you add this subdirectory to your webserver call, you get text below :)
+
+    // Get and update State of Power
+    info["power"]["state"] = "On";
+
+    // Get and update State of Temperature
+    info["temp"]["state"] = getTemperature();
+
     root.printTo(buffer, sizeof(buffer));
   });
 
@@ -128,3 +138,9 @@ void loop(void)
 {
   server.handleClient();
 } 
+char* getTemperature(void){
+
+  // Actually get the temperature here
+  return "55F";
+  
+}
