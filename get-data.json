@@ -1,0 +1,28 @@
+{
+    "info":[
+        {
+            "name": "State 1",
+            "state": "Working",
+            "buttons": [
+                {
+                    "name": "Thing 1",
+                    "action": "/action1-url"
+                },
+                {
+                    "name": "Thing 2",
+                    "action": "/action1-url2"
+                }
+            ]
+        },
+        {
+            "name": "State 2",
+            "state": "Not Working",
+            "buttons": [
+                {
+                    "name": "Thing 1",
+                    "action": "/action1-url"
+                }
+            ]
+        }
+    ]
+}
